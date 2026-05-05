@@ -39,3 +39,13 @@ export const deviceImageMap: Record<string, string> = {
 export function getDeviceImage(deviceModel: string): string {
   return deviceImageMap[deviceModel] || "/images/devices/iphone-15-pro-max.jpg"
 }
+
+export function getRepairCategoryImage(category: string): string {
+  const categoryImages: Record<string, string> = {
+    phone: "/images/categories/phone-repair.jpg",
+    laptop: "/images/categories/laptop-repair.jpg",
+    console: "/images/categories/console-repair.jpg",
+    general: "/images/categories/phone-repair.jpg",
+  }
+  return categoryImages[category] || "/images/categories/phone-repair.jpg"
+}

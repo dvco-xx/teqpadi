@@ -36,7 +36,7 @@ export function Footer() {
               <span className="font-semibold text-xl tracking-tight">Teqpadi</span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-sm">
-              {"Ghana's trusted destination for device repairs, fair pricing, and hassle-free trade-ins. We bring quality tech services to your doorstep."}
+              {"Nigeria's trusted destination for device repairs, fair pricing, and hassle-free trade-ins. We bring quality tech services to your doorstep."}
             </p>
             <div className="flex gap-3">
               <a
@@ -110,7 +110,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="h-4 w-4 text-primary mt-0.5" />
                 <div>
-                  <p className="text-sm text-foreground">+233 20 123 4567</p>
+                  <p className="text-sm text-foreground">+234 805 328 3754</p>
                   <p className="text-xs text-muted-foreground">Mon-Sat, 8am-6pm</p>
                 </div>
               </li>
@@ -121,8 +121,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 text-primary mt-0.5" />
                 <p className="text-sm text-muted-foreground">
-                  Accra Mall, Spintex Road<br />
-                  Accra, Ghana
+                  Lagos, Nigeria
                 </p>
               </li>
               <li className="flex items-start gap-3">

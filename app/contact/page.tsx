@@ -10,7 +10,7 @@ export default function ContactPage() {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-foreground mb-4">Get in Touch</h1>
             <p className="text-lg text-muted-foreground">
-              Have questions? We&apos;re here to help. Reach out to us anytime.
+              Have questions? We&apos;re here to help. Reach out to us anytime across Nigeria.
             </p>
           </div>
 
@@ -23,11 +23,15 @@ export default function ContactPage() {
                 <div className="space-y-4">
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Address</p>
-                    <p className="text-foreground">Teqpadi Tech Hub, Accra, Ghana</p>
+                    <p className="text-foreground">Teqpadi Tech Hub, Lagos, Nigeria</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Phone</p>
-                    <p className="text-foreground">+233 (0) XXX XXX XXXX</p>
+                    <p className="text-foreground">+234 805 328 3754</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">WhatsApp</p>
+                    <p className="text-foreground">+234 805 328 3754</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Email</p>
@@ -45,7 +49,7 @@ export default function ContactPage() {
               <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg border border-primary/20 p-6">
                 <h3 className="text-lg font-semibold text-foreground mb-2">Quick Response Time</h3>
                 <p className="text-sm text-muted-foreground">
-                  We typically respond to inquiries within 2 hours during business hours.
+                  We typically respond to inquiries within 2 hours during business hours. You can also reach us directly via WhatsApp.
                 </p>
               </div>
             </div>

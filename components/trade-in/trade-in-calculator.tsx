@@ -214,6 +214,38 @@ export function TradeInCalculator() {
                   </div>
                 </div>
 
+                {/* Instant Quotes by Category */}
+                <AnimatePresence>
+                  {selectedCategory && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="space-y-3 pt-4 border-t border-border"
+                    >
+                      <div className="flex items-center gap-2 mb-3">
+                        <Sparkles className="h-5 w-5 text-primary" />
+                        <Label className="text-base font-medium">Quick Estimates</Label>
+                      </div>
+                      <div className="grid grid-cols-3 gap-3">
+                        {conditions.slice(0, 3).map((condition) => {
+                          const baseValue = selectedCategory === "phone" ? 350 : selectedCategory === "laptop" ? 600 : 450
+                          const estimatedValue = Math.round(baseValue * condition.multiplier * 1000)
+                          return (
+                            <div
+                              key={condition.id}
+                              className="p-3 rounded-lg bg-muted/50 border border-border/50"
+                            >
+                              <p className="text-xs font-medium text-muted-foreground mb-1">{condition.label}</p>
+                              <p className="text-lg font-bold text-primary">₦{estimatedValue.toLocaleString()}</p>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 {/* Brand Selection */}
                 <AnimatePresence>
                   {selectedCategory && (

@@ -34,10 +34,22 @@ export function ContactForm() {
       });
 
       if (response.ok) {
+        // Send WhatsApp message
+        const phoneNumber = "234805328 3754"; // Nigerian number for WhatsApp
+        const message = `Hello Teqpadi!\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.serviceType}\nMessage: ${formData.message}`;
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        
+        // Show success message
         toast({
           title: 'Message Sent',
-          description: 'We&apos;ll get back to you shortly!',
+          description: 'We&apos;ll get back to you shortly! Opening WhatsApp...',
         });
+        
+        // Open WhatsApp after a brief delay
+        setTimeout(() => {
+          window.open(whatsappUrl, '_blank');
+        }, 500);
+        
         setFormData({ name: '', email: '', phone: '', serviceType: '', message: '' });
       } else {
         toast({

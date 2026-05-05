@@ -75,14 +75,18 @@ export function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Search className="h-5 w-5" />
-              <span className="sr-only">Search</span>
-            </Button>
-            <Button variant="default" className="rounded-full gap-2">
-              <Phone className="h-4 w-4" />
-              <span>Get Quote</span>
-            </Button>
+            <Link href="/prices">
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Search className="h-5 w-5" />
+                <span className="sr-only">Search</span>
+              </Button>
+            </Link>
+            <Link href="/repair">
+              <Button variant="default" className="rounded-full gap-2">
+                <Phone className="h-4 w-4" />
+                <span>Get Quote</span>
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -128,10 +132,12 @@ export function Header() {
             ))}
           </div>
           <div className="mt-4 pt-4 border-t border-border">
-            <Button variant="default" className="w-full rounded-full gap-2">
-              <Phone className="h-4 w-4" />
-              <span>Get a Free Quote</span>
-            </Button>
+            <Link href="/repair" className="block">
+              <Button variant="default" className="w-full rounded-full gap-2">
+                <Phone className="h-4 w-4" />
+                <span>Get a Free Quote</span>
+              </Button>
+            </Link>
           </div>
         </nav>
       </div>

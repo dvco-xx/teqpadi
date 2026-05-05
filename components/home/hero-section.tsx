@@ -64,7 +64,7 @@ export function HeroSection() {
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in-up animation-delay-100 text-pretty">
-            Expert repairs, fair trade-ins, and transparent pricing. We bring premium tech services right to your doorstep across Ghana.
+            Expert repairs, fair trade-ins, and transparent pricing. We bring premium tech services right to your doorstep across Nigeria.
           </p>
 
           {/* CTA Buttons */}

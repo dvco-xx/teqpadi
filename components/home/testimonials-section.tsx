@@ -41,7 +41,7 @@ const fallbackTestimonials: Testimonial[] = [
   {
     id: "3",
     name: "Emmanuel Nwosu",
-    content: "Best tech repair shop in Ghana! They diagnosed my laptop issue quickly and the repair was perfect. Will definitely come back.",
+    content: "Best tech repair shop in Nigeria! They diagnosed my laptop issue quickly and the repair was perfect. Will definitely come back.",
     rating: 5,
     avatar: avatarMap["Emmanuel Nwosu"],
   },
