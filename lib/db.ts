@@ -1,10 +1,15 @@
 import { neon } from "@neondatabase/serverless";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL environment variable is not set");
+// Initialize SQL client - will be available in runtime, optional during build
+let sql: any = null;
+
+if (process.env.DATABASE_URL) {
+  sql = neon(process.env.DATABASE_URL);
+} else if (process.env.NODE_ENV === "production") {
+  throw new Error("DATABASE_URL environment variable is required in production");
 }
 
-export const sql = neon(process.env.DATABASE_URL);
+export { sql };
 
 // Type definitions for database entities
 export interface Device {
