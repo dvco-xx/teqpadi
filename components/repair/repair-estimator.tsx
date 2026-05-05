@@ -244,11 +244,22 @@ export function RepairEstimator() {
               })}
             </div>
           ) : (
-            <Card className="mb-8">
+            <Card className="mb-8 border-dashed border-2">
               <CardContent className="p-8 text-center">
-                <p className="text-muted-foreground">
-                  No repair services available for this device yet. Please contact us for a custom quote.
+                <Wrench className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
+                <p className="text-muted-foreground mb-4">
+                  No repair services available for this device yet.
                 </p>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="rounded-full"
+                >
+                  <Link href="/contact">
+                    Get a Custom Quote
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
               </CardContent>
             </Card>
           )}

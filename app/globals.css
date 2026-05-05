@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply pt-16 md:pt-20;
+  }
+
   :root {
     /* Teqpadi Brand Colors - Purple & Gold */
     --background: 270 30% 98%;
