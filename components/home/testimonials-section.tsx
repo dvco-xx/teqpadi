@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Star, Quote } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -9,6 +10,16 @@ interface Testimonial {
   name: string
   content: string
   rating: number
+  avatar?: string
+}
+
+// Avatar mapping
+const avatarMap: Record<string, string> = {
+  "Adebayo Okonkwo": "/images/avatars/adebayo.jpg",
+  "Chidinma Eze": "/images/avatars/chidinma.jpg",
+  "Emmanuel Nwosu": "/images/avatars/emmanuel.jpg",
+  "Fatima Mensah": "/images/avatars/fatima.jpg",
+  "Kwame Asante": "/images/avatars/kwame.jpg",
 }
 
 // Fallback testimonials in case API fails
@@ -18,24 +29,28 @@ const fallbackTestimonials: Testimonial[] = [
     name: "Adebayo Okonkwo",
     content: "Teqpadi fixed my iPhone screen in just 2 hours! The quality is amazing and prices are fair. Highly recommended!",
     rating: 5,
+    avatar: avatarMap["Adebayo Okonkwo"],
   },
   {
     id: "2",
     name: "Chidinma Eze",
     content: "I traded in my old Samsung and got a great deal on a new iPhone. The process was smooth and the staff were very helpful.",
     rating: 5,
+    avatar: avatarMap["Chidinma Eze"],
   },
   {
     id: "3",
     name: "Emmanuel Nwosu",
     content: "Best tech repair shop in Ghana! They diagnosed my laptop issue quickly and the repair was perfect. Will definitely come back.",
     rating: 5,
+    avatar: avatarMap["Emmanuel Nwosu"],
   },
   {
     id: "4",
     name: "Fatima Mensah",
     content: "The trade-in calculator on their website helped me understand exactly what my device was worth. No surprises, great service!",
     rating: 4,
+    avatar: avatarMap["Fatima Mensah"],
   },
 ]
 
@@ -47,7 +62,12 @@ export function TestimonialsSection() {
       .then((res) => res.json())
       .then((data) => {
         if (data.testimonials && data.testimonials.length > 0) {
-          setTestimonials(data.testimonials)
+          // Add avatars to fetched testimonials
+          const enriched = data.testimonials.map((t: Testimonial) => ({
+            ...t,
+            avatar: avatarMap[t.name] || "/images/avatars/default.jpg",
+          }))
+          setTestimonials(enriched)
         }
       })
       .catch(() => {
@@ -82,7 +102,7 @@ export function TestimonialsSection() {
                 </p>
                 
                 {/* Rating */}
-                <div className="flex gap-1 mb-3">
+                <div className="flex gap-1 mb-4">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
@@ -95,9 +115,21 @@ export function TestimonialsSection() {
                   ))}
                 </div>
                 
-                {/* Name */}
-                <div className="font-medium text-foreground">
-                  {testimonial.name}
+                {/* Author with Avatar */}
+                <div className="flex items-center gap-3">
+                  {testimonial.avatar && (
+                    <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                      <Image
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="font-medium text-foreground">
+                    {testimonial.name}
+                  </div>
                 </div>
               </CardContent>
             </Card>

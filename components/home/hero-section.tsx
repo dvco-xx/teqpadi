@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import Link from "next/link"
-import { ArrowRight, Smartphone, Laptop, Gamepad2, Sparkles } from "lucide-react"
+import { ArrowRight, Smartphone, Laptop, Gamepad2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function HeroSection() {
@@ -56,12 +56,6 @@ export function HeroSection() {
 
       <div className="container mx-auto px-4 pt-20 pb-32 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 animate-fade-in">
-            <Sparkles className="w-4 h-4" />
-            <span>{"Ghana's #1 Tech Service Platform"}</span>
-          </div>
-
           {/* Main headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 animate-fade-in-up text-balance">
             Your Devices.{" "}

@@ -1,11 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Search, Smartphone, Laptop, Gamepad2, Package, ChevronRight, Tag } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { cn, formatCurrency, getConditionLabel, getConditionColor } from "@/lib/utils"
+import { getDeviceImage } from "@/lib/device-images"
 
 interface Brand {
   id: string
@@ -296,26 +298,37 @@ export function PriceChecker() {
                   device.category === "laptop" ? Laptop :
                   device.category === "console" ? Gamepad2 : Package
                 
+                const deviceImage = getDeviceImage(device.model)
+                
                 return (
                   <Card
                     key={device.id}
-                    className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-primary/20 hover:scale-[1.02]"
+                    className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-primary/20 hover:scale-[1.02] overflow-hidden"
                     onClick={() => setSelectedDevice(device)}
                   >
-                    <CardContent className="p-6">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                        <CategoryIcon className="w-6 h-6 text-primary" />
+                    <CardContent className="p-0">
+                      {/* Device Image */}
+                      <div className="relative w-full h-40 bg-muted flex items-center justify-center overflow-hidden">
+                        <Image
+                          src={deviceImage}
+                          alt={device.model}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
-                      <p className="text-sm text-muted-foreground mb-1">{device.brand_name}</p>
-                      <h3 className="font-semibold text-foreground mb-2">{device.model}</h3>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>{device.release_year}</span>
-                        {device.storage_options && device.storage_options.length > 0 && (
-                          <>
-                            <span>•</span>
-                            <span>{device.storage_options.join(", ")}</span>
-                          </>
-                        )}
+                      {/* Device Info */}
+                      <div className="p-4">
+                        <p className="text-sm text-muted-foreground mb-1">{device.brand_name}</p>
+                        <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{device.model}</h3>
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <span>{device.release_year}</span>
+                          {device.storage_options && device.storage_options.length > 0 && (
+                            <>
+                              <span>•</span>
+                              <span>{device.storage_options.join(", ")}</span>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
