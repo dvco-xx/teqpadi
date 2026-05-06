@@ -1,9 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import { Star, Quote } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
 
 interface Testimonial {
   id: string
@@ -13,15 +11,6 @@ interface Testimonial {
   avatar?: string
 }
 
-// Avatar mapping
-const avatarMap: Record<string, string> = {
-  "Adebayo Okonkwo": "/images/avatars/adebayo.jpg",
-  "Chidinma Eze": "/images/avatars/chidinma.jpg",
-  "Emmanuel Nwosu": "/images/avatars/emmanuel.jpg",
-  "Fatima Mensah": "/images/avatars/fatima.jpg",
-  "Kwame Asante": "/images/avatars/kwame.jpg",
-}
-
 // Fallback testimonials in case API fails
 const fallbackTestimonials: Testimonial[] = [
   {
@@ -29,28 +18,24 @@ const fallbackTestimonials: Testimonial[] = [
     name: "Adebayo Okonkwo",
     content: "Teqpadi fixed my iPhone screen in just 2 hours! The quality is amazing and prices are fair. Highly recommended!",
     rating: 5,
-    avatar: avatarMap["Adebayo Okonkwo"],
   },
   {
     id: "2",
     name: "Chidinma Eze",
     content: "I traded in my old Samsung and got a great deal on a new iPhone. The process was smooth and the staff were very helpful.",
     rating: 5,
-    avatar: avatarMap["Chidinma Eze"],
   },
   {
     id: "3",
     name: "Emmanuel Nwosu",
     content: "Best tech repair shop in Nigeria! They diagnosed my laptop issue quickly and the repair was perfect. Will definitely come back.",
     rating: 5,
-    avatar: avatarMap["Emmanuel Nwosu"],
   },
   {
     id: "4",
     name: "Fatima Mensah",
-    content: "The trade-in calculator on their website helped me understand exactly what my device was worth. No surprises, great service!",
+    content: "The trade-in calculator on their website helped me understand exactly what my device was worth. No surprises!",
     rating: 4,
-    avatar: avatarMap["Fatima Mensah"],
   },
 ]
 
@@ -62,12 +47,7 @@ export function TestimonialsSection() {
       .then((res) => res.json())
       .then((data) => {
         if (data.testimonials && data.testimonials.length > 0) {
-          // Add avatars to fetched testimonials
-          const enriched = data.testimonials.map((t: Testimonial) => ({
-            ...t,
-            avatar: avatarMap[t.name] || "/images/avatars/default.jpg",
-          }))
-          setTestimonials(enriched)
+          setTestimonials(data.testimonials)
         }
       })
       .catch(() => {
@@ -76,63 +56,74 @@ export function TestimonialsSection() {
   }, [])
 
   return (
-    <section className="py-20 md:py-32 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section className="py-20 md:py-32" style={{ background: 'linear-gradient(to bottom, #f7f4ef, #faf8f3)' }}>
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 text-balance">
-            What Our Customers Say
+        <div className="text-center mb-16 md:mb-20">
+          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border" style={{
+            background: 'rgba(91, 31, 168, 0.08)',
+            borderColor: 'rgba(91, 31, 168, 0.2)'
+          }}>
+            <div className="w-1 h-1 rounded-full" style={{ background: '#5b1fa8' }} />
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#5b1fa8' }}>Testimonials</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black max-w-2xl mx-auto mb-4" style={{ color: '#0d0a1a' }}>
+            Loved by Nigerians
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-            {"Don't just take our word for it. Here's what people are saying about Teqpadi."}
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: '#6b6480' }}>
+            Real stories from real customers who trust Teqpadi.
           </p>
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {testimonials.slice(0, 4).map((testimonial) => (
-            <Card key={testimonial.id} className="h-full">
-              <CardContent className="p-6">
-                {/* Quote icon */}
-                <Quote className="w-8 h-8 text-primary/20 mb-4" />
-                
-                {/* Content */}
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  {`"${testimonial.content}"`}
-                </p>
-                
-                {/* Rating */}
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-4 h-4 ${
-                        i < testimonial.rating
-                          ? "fill-amber-400 text-amber-400"
-                          : "text-muted"
-                      }`}
-                    />
-                  ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.id}
+              className="p-8 md:p-10 rounded-2xl border-2 transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                background: 'white',
+                borderColor: 'rgba(91, 31, 168, 0.12)',
+                boxShadow: '0 8px 40px rgba(91, 31, 168, 0.08)'
+              }}
+            >
+              {/* Quote icon */}
+              <Quote className="w-8 h-8 mb-4" style={{ color: '#f5c800' }} />
+
+              {/* Rating stars */}
+              <div className="flex gap-1 mb-4">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 fill-current"
+                    style={{ color: '#f5c800' }}
+                  />
+                ))}
+              </div>
+
+              {/* Content */}
+              <p className="text-sm leading-relaxed mb-6" style={{ color: '#0d0a1a' }}>
+                {testimonial.content}
+              </p>
+
+              {/* Author */}
+              <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: 'rgba(91, 31, 168, 0.08)' }}>
+                <div 
+                  className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm"
+                  style={{ background: 'linear-gradient(to bottom right, #5b1fa8, #7c3dd6)' }}
+                >
+                  {testimonial.name.charAt(0)}
                 </div>
-                
-                {/* Author with Avatar */}
-                <div className="flex items-center gap-3">
-                  {testimonial.avatar && (
-                    <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                      <Image
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="font-medium text-foreground">
+                <div>
+                  <div className="font-bold" style={{ color: '#0d0a1a' }}>
                     {testimonial.name}
                   </div>
+                  <div className="text-xs" style={{ color: '#6b6480' }}>
+                    Verified Customer
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,133 +1,115 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { Wrench, ArrowLeftRight, Tag, Truck } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
 
 const services = [
   {
     icon: Wrench,
     title: "Device Repairs",
-    description: "Expert repair services for phones, laptops, and gaming consoles. We fix screens, batteries, charging ports, and more.",
+    description: "Expert repair services for phones, laptops, and gaming consoles. Screens, batteries, charging ports, and more.",
     href: "/repair",
-    gradient: "from-blue-600 to-blue-400",
-    image: "/images/categories/phone-repair.jpg",
-    featured: true,
   },
   {
     icon: ArrowLeftRight,
     title: "Trade-In Program",
-    description: "Get the best value for your old devices. Instant quotes and fair prices.",
+    description: "Get the best value for your old devices. Instant quotes and fair prices for all conditions.",
     href: "/trade-in",
-    gradient: "from-emerald-600 to-emerald-400",
   },
   {
     icon: Tag,
     title: "Price Checker",
-    description: "Know exactly what your device is worth in any condition.",
+    description: "Know exactly what your device is worth in any condition, anytime.",
     href: "/prices",
-    gradient: "from-amber-600 to-amber-400",
   },
   {
     icon: Truck,
     title: "Home Pickup",
-    description: "We come to you. Free pickup and delivery for repairs.",
+    description: "Too busy to visit? We come to you. Free pickup and delivery in Lagos.",
     href: "/contact",
-    gradient: "from-violet-600 to-violet-400",
   },
 ]
 
 export function ServicesSection() {
   return (
-    <section className="py-20 md:py-32 bg-black/50">
-      <div className="container mx-auto px-4">
+    <section className="py-20 md:py-32" style={{ background: 'linear-gradient(to bottom, #f7f4ef, #faf8f3)' }}>
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Section Header */}
-        <div className="max-w-2xl mb-16">
-          <h2 className="text-4xl sm:text-5xl font-black text-foreground mb-4">
-            Everything your device needs
+        <div className="mb-16 md:mb-20">
+          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border" style={{
+            background: 'rgba(91, 31, 168, 0.08)',
+            borderColor: 'rgba(91, 31, 168, 0.2)'
+          }}>
+            <div className="w-1 h-1 rounded-full" style={{ background: '#5b1fa8' }} />
+            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#5b1fa8' }}>Our Services</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black" style={{ color: '#0d0a1a' }}>
+            Everything Your Device Needs
           </h2>
-          <p className="text-lg text-muted-foreground">
-            From repairs to trade-ins. All backed by expertise and care.
-          </p>
         </div>
 
-        {/* Services Grid - Modern masonry layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          {/* Featured service - large card */}
-          <Link
-            href={services[0].href}
-            className="md:col-span-6 group"
-          >
-            <Card className="h-full overflow-hidden border-0 bg-gradient-to-br from-blue-600/20 to-blue-400/10 hover:from-blue-600/30 hover:to-blue-400/20 transition-all duration-500">
-              <CardContent className="p-0 h-96 md:h-full relative flex flex-col">
-                {/* Background image */}
-                <div className="absolute inset-0">
-                  {services[0].image && (
-                    <Image
-                      src={services[0].image}
-                      alt={services[0].title}
-                      fill
-                      className="object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10 flex-1 flex flex-col justify-between p-8">
-                  <div>
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-300 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <Wrench className="w-7 h-7 text-blue-900" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      {services[0].title}
-                    </h3>
-                    <p className="text-blue-100 text-sm leading-relaxed">
-                      {services[0].description}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-
-          {/* Right column with 3 smaller cards */}
-          <div className="md:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {services.slice(1).map((service, idx) => {
-              const Icon = service.icon
-              return (
-                <Link key={service.title} href={service.href} className="group">
-                  <Card className="h-full border-0 bg-gradient-to-br opacity-90 hover:opacity-100 transition-all hover:scale-[1.02] cursor-pointer"
+        {/* Services Grid - 2x2 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {services.map((service) => {
+            const Icon = service.icon
+            return (
+              <Link key={service.title} href={service.href} className="group">
+                <div 
+                  className="p-8 md:p-10 rounded-2xl border-2 transition-all duration-300 hover:scale-[1.02] cursor-pointer h-full flex flex-col"
+                  style={{
+                    background: 'white',
+                    borderColor: 'rgba(91, 31, 168, 0.12)',
+                    boxShadow: '0 8px 40px rgba(91, 31, 168, 0.08)'
+                  }}
+                >
+                  {/* Icon */}
+                  <div 
+                    className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
                     style={{
-                      backgroundImage: `linear-gradient(to bottom right, ${
-                        service.gradient.includes("emerald")
-                          ? "rgb(5, 150, 105, 0.15), rgb(16, 185, 129, 0.05)"
-                          : service.gradient.includes("amber")
-                          ? "rgb(180, 83, 9, 0.15), rgb(217, 119, 6, 0.05)"
-                          : "rgb(109, 40, 217, 0.15), rgb(139, 92, 246, 0.05)"
-                      })`,
+                      background: 'linear-gradient(to bottom right, #5b1fa8, #7c3dd6)',
                     }}
                   >
-                    <CardContent className="p-6 sm:p-8 flex flex-col h-64">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-bold text-foreground mb-2">
-                          {service.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {service.description}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              )
-            })}
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl font-black mb-3" style={{ color: '#0d0a1a' }}>
+                    {service.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm leading-relaxed flex-grow mb-4" style={{ color: '#6b6480' }}>
+                    {service.description}
+                  </p>
+
+                  {/* Link indicator */}
+                  <div className="inline-flex items-center gap-2 text-sm font-bold" style={{ color: '#f5c800' }}>
+                    Learn more
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
+
+        {/* Features row */}
+        <div className="mt-16 md:mt-20 pt-12 md:pt-16 border-t" style={{ borderColor: 'rgba(91, 31, 168, 0.1)' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12">
+            <div className="text-center">
+              <div className="text-4xl font-black mb-2" style={{ color: '#f5c800' }}>5K+</div>
+              <div className="text-sm font-semibold" style={{ color: '#6b6480' }}>Devices Repaired</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-black mb-2" style={{ color: '#f5c800' }}>98%</div>
+              <div className="text-sm font-semibold" style={{ color: '#6b6480' }}>Customer Satisfaction</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-black mb-2" style={{ color: '#f5c800' }}>24h</div>
+              <div className="text-sm font-semibold" style={{ color: '#6b6480' }}>Average Turnaround</div>
+            </div>
           </div>
         </div>
       </div>
