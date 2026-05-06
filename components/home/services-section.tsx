@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { Wrench, ArrowLeftRight, Tag, Truck, Shield, Clock, ArrowRight } from "lucide-react"
+import Image from "next/image"
+import { Wrench, ArrowLeftRight, Tag, Truck } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
 const services = [
@@ -10,109 +11,124 @@ const services = [
     title: "Device Repairs",
     description: "Expert repair services for phones, laptops, and gaming consoles. We fix screens, batteries, charging ports, and more.",
     href: "/repair",
-    color: "text-blue-500",
-    bgColor: "bg-blue-500/10",
+    gradient: "from-blue-600 to-blue-400",
+    image: "/images/categories/phone-repair.jpg",
+    featured: true,
   },
   {
     icon: ArrowLeftRight,
     title: "Trade-In Program",
-    description: "Get the best value for your old devices. Instant quotes and fair prices for phones, laptops, and consoles.",
+    description: "Get the best value for your old devices. Instant quotes and fair prices.",
     href: "/trade-in",
-    color: "text-emerald-500",
-    bgColor: "bg-emerald-500/10",
+    gradient: "from-emerald-600 to-emerald-400",
   },
   {
     icon: Tag,
     title: "Price Checker",
-    description: "Know exactly what your device is worth. Check current market prices for any condition.",
+    description: "Know exactly what your device is worth in any condition.",
     href: "/prices",
-    color: "text-amber-500",
-    bgColor: "bg-amber-500/10",
+    gradient: "from-amber-600 to-amber-400",
   },
   {
     icon: Truck,
     title: "Home Pickup",
-    description: "Too busy to visit? We come to you. Free pickup and delivery for repairs and trade-ins in Accra.",
+    description: "We come to you. Free pickup and delivery for repairs.",
     href: "/contact",
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
-  },
-]
-
-const features = [
-  {
-    icon: Shield,
-    title: "90-Day Warranty",
-    description: "All repairs backed by warranty",
-  },
-  {
-    icon: Clock,
-    title: "Fast Turnaround",
-    description: "Most repairs done same day",
+    gradient: "from-violet-600 to-violet-400",
   },
 ]
 
 export function ServicesSection() {
   return (
-    <section className="py-20 md:py-32 bg-muted/30">
+    <section className="py-20 md:py-32 bg-black/50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 text-balance">
-            Everything Your Device Needs
+        <div className="max-w-2xl mb-16">
+          <h2 className="text-4xl sm:text-5xl font-black text-foreground mb-4">
+            Everything your device needs
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-            From quick repairs to trade-ins, we offer comprehensive tech services with transparency and care.
+          <p className="text-lg text-muted-foreground">
+            From repairs to trade-ins. All backed by expertise and care.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {services.map((service) => {
-            const Icon = service.icon
-            return (
-              <Link key={service.title} href={service.href} className="group">
-                <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/20 group-hover:scale-[1.02]">
-                  <CardContent className="p-6 md:p-8">
-                    <div className="flex items-start gap-4">
-                      <div className={`w-14 h-14 rounded-2xl ${service.bgColor} flex items-center justify-center flex-shrink-0`}>
-                        <Icon className={`w-7 h-7 ${service.color}`} />
+        {/* Services Grid - Modern masonry layout */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {/* Featured service - large card */}
+          <Link
+            href={services[0].href}
+            className="md:col-span-6 group"
+          >
+            <Card className="h-full overflow-hidden border-0 bg-gradient-to-br from-blue-600/20 to-blue-400/10 hover:from-blue-600/30 hover:to-blue-400/20 transition-all duration-500">
+              <CardContent className="p-0 h-96 md:h-full relative flex flex-col">
+                {/* Background image */}
+                <div className="absolute inset-0">
+                  {services[0].image && (
+                    <Image
+                      src={services[0].image}
+                      alt={services[0].title}
+                      fill
+                      className="object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-500"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 flex-1 flex flex-col justify-between p-8">
+                  <div>
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-300 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Wrench className="w-7 h-7 text-blue-900" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      {services[0].title}
+                    </h3>
+                    <p className="text-blue-100 text-sm leading-relaxed">
+                      {services[0].description}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          {/* Right column with 3 smaller cards */}
+          <div className="md:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {services.slice(1).map((service, idx) => {
+              const Icon = service.icon
+              return (
+                <Link key={service.title} href={service.href} className="group">
+                  <Card className="h-full border-0 bg-gradient-to-br opacity-90 hover:opacity-100 transition-all hover:scale-[1.02] cursor-pointer"
+                    style={{
+                      backgroundImage: `linear-gradient(to bottom right, ${
+                        service.gradient.includes("emerald")
+                          ? "rgb(5, 150, 105, 0.15), rgb(16, 185, 129, 0.05)"
+                          : service.gradient.includes("amber")
+                          ? "rgb(180, 83, 9, 0.15), rgb(217, 119, 6, 0.05)"
+                          : "rgb(109, 40, 217, 0.15), rgb(139, 92, 246, 0.05)"
+                      })`,
+                    }}
+                  >
+                    <CardContent className="p-6 sm:p-8 flex flex-col h-64">
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                        <Icon className="w-6 h-6 text-white" />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="text-xl font-semibold text-foreground">
-                            {service.title}
-                          </h3>
-                          <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" />
-                        </div>
-                        <p className="text-muted-foreground leading-relaxed">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-foreground mb-2">
+                          {service.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                           {service.description}
                         </p>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            )
-          })}
-        </div>
-
-        {/* Features Strip */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8 border-t border-border">
-          {features.map((feature) => {
-            const Icon = feature.icon
-            return (
-              <div key={feature.title} className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Icon className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <div className="font-medium text-foreground">{feature.title}</div>
-                  <div className="text-sm text-muted-foreground">{feature.description}</div>
-                </div>
-              </div>
-            )
-          })}
+                    </CardContent>
+                  </Card>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>

@@ -2,80 +2,140 @@
 
 import { useEffect, useRef } from "react"
 import Link from "next/link"
-import { ArrowRight, Smartphone, Laptop, Gamepad2 } from "lucide-react"
+import { ArrowRight, Smartphone, Laptop, Gamepad2, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      container.style.setProperty("--mouse-x", `${x}px`)
-      container.style.setProperty("--mouse-y", `${y}px`)
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    // Set canvas size
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+
+    // Animated particles
+    const particles: Array<{
+      x: number
+      y: number
+      vx: number
+      vy: number
+      r: number
+      opacity: number
+    }> = []
+
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        r: Math.random() * 2,
+        opacity: Math.random() * 0.5,
+      })
     }
 
-    container.addEventListener("mousemove", handleMouseMove)
-    return () => container.removeEventListener("mousemove", handleMouseMove)
+    const animate = () => {
+      ctx.fillStyle = "rgba(13, 13, 13, 0.1)"
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      particles.forEach((p) => {
+        p.x += p.vx
+        p.y += p.vy
+
+        if (p.x < 0) p.x = canvas.width
+        if (p.x > canvas.width) p.x = 0
+        if (p.y < 0) p.y = canvas.height
+        if (p.y > canvas.height) p.y = 0
+
+        ctx.fillStyle = `rgba(255, 107, 53, ${p.opacity})`
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+        ctx.fill()
+      })
+
+      requestAnimationFrame(animate)
+    }
+
+    animate()
+
+    const handleResize = () => {
+      canvas.width = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+    }
+
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
   }, [])
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-background"
-    >
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
-      
-      {/* Animated grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-30" />
-      
-      {/* Floating device icons */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-[10%] animate-float-slow">
-          <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center backdrop-blur-sm">
-            <Smartphone className="w-8 h-8 text-primary" />
-          </div>
-        </div>
-        <div className="absolute top-1/3 right-[15%] animate-float-medium">
-          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center backdrop-blur-sm">
-            <Laptop className="w-7 h-7 text-primary" />
-          </div>
-        </div>
-        <div className="absolute bottom-1/3 left-[20%] animate-float-fast">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center backdrop-blur-sm">
-            <Gamepad2 className="w-6 h-6 text-primary" />
-          </div>
-        </div>
-      </div>
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-background">
+      {/* Animated canvas background */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none"
+      />
 
-      <div className="container mx-auto px-4 pt-20 pb-32 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Main headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 animate-fade-in-up text-balance">
-            Your Devices.{" "}
-            <span className="text-primary">Our Expertise.</span>
-          </h1>
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-black/40" />
 
-          {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in-up animation-delay-100 text-pretty">
-            Expert repairs, fair trade-ins, and transparent pricing. We bring premium tech services right to your doorstep across Nigeria.
-          </p>
+      {/* Content */}
+      <div className="container mx-auto px-4 relative z-10 pt-32 pb-20">
+        <div className="max-w-5xl mx-auto">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm">
+            <Zap className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Premium Tech Services</span>
+          </div>
+
+          {/* Main headline - bold and impactful */}
+          <div className="mb-8">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground leading-none mb-6">
+              Tech Problems?
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-orange-400 mt-2">
+                We Fix Them Fast
+              </span>
+            </h1>
+
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed mt-6">
+              Expert repairs, fair trade-ins, and transparent pricing. From screen replacements to full device overhauls—we handle it all with professional precision.
+            </p>
+          </div>
+
+          {/* Feature highlights */}
+          <div className="flex flex-wrap gap-4 mb-12">
+            {[
+              { icon: Smartphone, label: "Phones" },
+              { icon: Laptop, label: "Laptops" },
+              { icon: Gamepad2, label: "Consoles" },
+            ].map((item) => {
+              const Icon = item.icon
+              return (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-background/50 backdrop-blur-sm hover:border-primary/50 transition-colors"
+                >
+                  <Icon className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">{item.label}</span>
+                </div>
+              )
+            })}
+          </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animation-delay-200">
+          <div className="flex flex-col sm:flex-row items-start gap-4 mb-16">
             <Button
               asChild
               size="lg"
-              className="rounded-full px-8 h-14 text-base gap-2 w-full sm:w-auto"
+              className="rounded-full px-8 h-14 text-base gap-2 bg-gradient-to-r from-primary to-orange-500 hover:from-primary hover:to-orange-600 shadow-lg hover:shadow-xl transition-all"
             >
               <Link href="/repair">
-                Get a Repair Quote
+                Get Free Quote
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
@@ -83,34 +143,34 @@ export function HeroSection() {
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full px-8 h-14 text-base w-full sm:w-auto"
+              className="rounded-full px-8 h-14 text-base border-border hover:border-primary/50 hover:bg-background/80"
             >
               <Link href="/prices">
-                Check Device Prices
+                Check Prices
               </Link>
             </Button>
           </div>
 
-          {/* Stats */}
-          <div className="mt-16 pt-16 border-t border-border animate-fade-in-up animation-delay-300">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-foreground mb-1">5K+</div>
-                <div className="text-sm text-muted-foreground">Devices Repaired</div>
+          {/* Stats - redesigned as visual boxes */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { value: "5K+", label: "Repairs" },
+              { value: "98%", label: "Happy Clients" },
+              { value: "24h", label: "Fast Turnaround" },
+              { value: "90d", label: "Warranty" },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="p-4 rounded-2xl border border-border/50 bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/30 transition-all group"
+              >
+                <div className="text-2xl sm:text-3xl font-black text-primary group-hover:text-orange-400 transition-colors">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-muted-foreground mt-1">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-foreground mb-1">98%</div>
-                <div className="text-sm text-muted-foreground">Customer Satisfaction</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-foreground mb-1">24h</div>
-                <div className="text-sm text-muted-foreground">Average Repair Time</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-foreground mb-1">90 Days</div>
-                <div className="text-sm text-muted-foreground">Repair Warranty</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
