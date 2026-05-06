@@ -12,7 +12,16 @@
   }
 
   :root {
-    /* Teqpadi Brand Colors - Purple & Gold */
+    /* Teqpadi Brand Colors - Purple & Yellow */
+    --purple: #5b1fa8;
+    --purple-dark: #3a0e6e;
+    --purple-light: #7c3dd6;
+    --yellow: #f5c800;
+    --yellow-dark: #d4a800;
+    --ink: #0d0a1a;
+    --offwhite: #f7f4ef;
+    --muted: #6b6480;
+    
     --background: 270 30% 98%;
     --foreground: 270 50% 10%;
     
