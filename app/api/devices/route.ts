@@ -4,7 +4,7 @@ import { sql } from "@/lib/db"
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
-    const brandId = searchParams.get("brandId")
+    const brandId = searchParams.get("brandId") || searchParams.get("brand_id") // Support both
     const category = searchParams.get("category")
     const search = searchParams.get("search")
 

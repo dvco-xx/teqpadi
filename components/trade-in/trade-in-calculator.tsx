@@ -92,14 +92,16 @@ export function TradeInCalculator() {
   const [tradeInValue, setTradeInValue] = useState<number | null>(null)
   const [isCalculating, setIsCalculating] = useState(false)
 
-  const { data: brands, isLoading: brandsLoading } = useSWR<Brand[]>("/api/brands", fetcher)
+  const { data: brandsData, isLoading: brandsLoading } = useSWR<{ brands: Brand[] }>("/api/brands", fetcher)
+  const brands = brandsData?.brands || []
   
-  const { data: devices, isLoading: devicesLoading } = useSWR<Device[]>(
+  const { data: devicesData, isLoading: devicesLoading } = useSWR<{ devices: Device[] }>(
     selectedCategory && selectedBrand 
-      ? `/api/devices?category=${selectedCategory}&brand_id=${selectedBrand}` 
+      ? `/api/devices?category=${selectedCategory}&brandId=${selectedBrand}` 
       : null,
     fetcher
   )
+  const devices = devicesData?.devices || []
 
   const currentDevice = devices?.find(d => d.id === selectedDevice)
 
@@ -141,16 +143,16 @@ export function TradeInCalculator() {
     
     try {
       const res = await fetch(
-        `/api/prices?device_id=${selectedDevice}&storage=${selectedStorage}&condition=${selectedCondition}`
+        `/api/prices?deviceId=${selectedDevice}&storage=${selectedStorage}&condition=${selectedCondition}`
       )
       const data = await res.json()
       
-      if (data.length > 0) {
-        setTradeInValue(data[0].trade_in_value)
+      if (data.prices && data.prices.length > 0) {
+        setTradeInValue(data.prices[0].trade_in_value)
       } else {
         // Calculate estimated value if no exact match
         const conditionMultiplier = conditions.find(c => c.id === selectedCondition)?.multiplier || 0.7
-        const baseValue = 300000 // Base value in pesewas
+        const baseValue = 300000 // Base value in Naira
         setTradeInValue(Math.round(baseValue * conditionMultiplier))
       }
       setStep(2)
