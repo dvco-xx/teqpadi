@@ -51,9 +51,6 @@ export function Header() {
                 className="object-cover"
               />
             </div>
-            <span className="font-semibold text-xl tracking-tight text-foreground hidden sm:inline">
-              Teqpadi
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
