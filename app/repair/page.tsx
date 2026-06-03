@@ -164,7 +164,7 @@ export default function RepairPage() {
       </div>
 
       <div className="container mx-auto px-4 py-12 max-w-2xl">
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="space-y-8">
           {/* Step 1: Device Selection */}
           {step >= 1 && (
             <div className="p-8 rounded-2xl border-2" style={{ background: 'white', borderColor: 'rgba(91, 31, 168, 0.12)' }}>
@@ -210,6 +210,7 @@ export default function RepairPage() {
                 ))}
               </div>
               <Button
+                type="button"
                 onClick={() => form.issues.length > 0 && setStep(3)}
                 disabled={form.issues.length === 0}
                 className="w-full"
@@ -316,6 +317,7 @@ export default function RepairPage() {
               </div>
 
               <Button
+                type="button"
                 onClick={() => setStep(4)}
                 className="w-full mt-6"
                 style={{ background: '#5b1fa8', color: 'white' }}
@@ -368,6 +370,7 @@ export default function RepairPage() {
               </div>
 
               <Button
+                type="button"
                 onClick={() => setStep(5)}
                 className="w-full mt-6"
                 style={{ background: '#5b1fa8', color: 'white' }}
@@ -401,6 +404,7 @@ export default function RepairPage() {
               </div>
 
               <Button
+                type="button"
                 onClick={() => setStep(6)}
                 className="w-full mt-6"
                 style={{ background: '#5b1fa8', color: 'white' }}
@@ -428,6 +432,7 @@ export default function RepairPage() {
 
               <Button
                 type="submit"
+                onClick={handleSubmit}
                 className="w-full mt-6"
                 style={{ background: '#5b1fa8', color: 'white' }}
               >
@@ -435,7 +440,7 @@ export default function RepairPage() {
               </Button>
             </div>
           )}
-        </form>
+        </div>
       </div>
     </div>
   )
