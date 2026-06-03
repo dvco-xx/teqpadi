@@ -56,20 +56,11 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left content */}
           <div>
-            {/* Logo */}
-            <div className="mb-8">
-              <img 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Teqpadi_logo_3-ldXKiHNQfihFoiihDYzekvvvhYiovU.jpg"
-                alt="Teqpadi"
-                className="h-20 w-auto"
-              />
-            </div>
-
             {/* Motto */}
             <h1 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-              Teqpadi
+              <span className="text-white">Teqpadi</span>
               <br />
-              <span className="text-[#f5c800]">Your Guy</span>
+              <span style={{ color: '#f5c800' }}>Your Guy</span>
             </h1>
 
             {/* Subheading with motto explanation */}

@@ -18,8 +18,8 @@ interface Product {
 const DUMMY_PRODUCTS: Product[] = [
   {
     id: "1",
-    model: "Samsung S25 FE",
-    category: "Android",
+    model: "Samsung Galaxy S25 FE",
+    category: "Samsung",
     price: 350000,
     image_url: "https://via.placeholder.com/300x300?text=Samsung+S25+FE",
     storage_options: ["128GB", "256GB"],
@@ -35,7 +35,7 @@ const DUMMY_PRODUCTS: Product[] = [
   {
     id: "3",
     model: "iPhone 17 Pro Max",
-    category: "iPhone",
+    category: "Apple",
     price: 1950000,
     image_url: "https://via.placeholder.com/300x300?text=iPhone+17+Pro+Max",
     storage_options: ["128GB", "256GB", "512GB"],
@@ -43,7 +43,7 @@ const DUMMY_PRODUCTS: Product[] = [
   {
     id: "4",
     model: "MacBook Air M3",
-    category: "MacBook",
+    category: "Apple",
     price: 850000,
     image_url: "https://via.placeholder.com/300x300?text=MacBook+Air+M3",
     storage_options: ["256GB", "512GB"],
@@ -51,7 +51,7 @@ const DUMMY_PRODUCTS: Product[] = [
   {
     id: "5",
     model: "Apple Watch Series 10",
-    category: "Apple Watch",
+    category: "Apple",
     price: 480000,
     image_url: "https://via.placeholder.com/300x300?text=Apple+Watch+Series+10",
     storage_options: ["32GB", "64GB"],
@@ -59,7 +59,7 @@ const DUMMY_PRODUCTS: Product[] = [
   {
     id: "6",
     model: "iPhone 16",
-    category: "iPhone",
+    category: "Apple",
     price: 750000,
     image_url: "https://via.placeholder.com/300x300?text=iPhone+16",
     storage_options: ["128GB", "256GB"],
@@ -67,7 +67,7 @@ const DUMMY_PRODUCTS: Product[] = [
   {
     id: "7",
     model: "iPad Pro 11\"",
-    category: "iPad",
+    category: "Apple",
     price: 620000,
     image_url: "https://via.placeholder.com/300x300?text=iPad+Pro+11",
     storage_options: ["128GB", "256GB", "512GB"],
@@ -83,7 +83,7 @@ const DUMMY_PRODUCTS: Product[] = [
   {
     id: "9",
     model: "Samsung Galaxy Tab S9",
-    category: "Android",
+    category: "Samsung",
     price: 430000,
     image_url: "https://via.placeholder.com/300x300?text=Galaxy+Tab+S9",
     storage_options: ["128GB", "256GB"],
@@ -100,17 +100,62 @@ const PRICE_RANGES = [
 ]
 
 const CATEGORIES = [
-  "All Categories",
-  "iPhone",
-  "MacBook",
-  "Apple Watch",
-  "iPad",
-  "Accessories",
-  "Android",
+  { label: "All Categories", value: "All Categories", subcategories: [] },
+  { 
+    label: "Apple", 
+    value: "Apple",
+    subcategories: ["iPhone", "iPad", "MacBook", "Apple Watch", "AirPods", "Apple TV"]
+  },
+  { 
+    label: "Samsung", 
+    value: "Samsung",
+    subcategories: ["Galaxy S Series", "Galaxy Tab", "Galaxy Watch", "Galaxy Buds", "Galaxy A Series"]
+  },
+  { 
+    label: "Infinix", 
+    value: "Infinix",
+    subcategories: ["Infinix Note", "Infinix Smart", "Infinix Hot"]
+  },
+  { 
+    label: "Tecno", 
+    value: "Tecno",
+    subcategories: ["Tecno Camon", "Tecno Spark", "Tecno Phantom"]
+  },
+  { 
+    label: "Oppo", 
+    value: "Oppo",
+    subcategories: ["Oppo Reno", "Oppo A Series", "Oppo Find"]
+  },
+  { 
+    label: "Dell", 
+    value: "Dell",
+    subcategories: ["Dell Inspiron", "Dell XPS", "Dell Latitude", "Dell Alienware"]
+  },
+  { 
+    label: "HP", 
+    value: "HP",
+    subcategories: ["HP Pavilion", "HP Envy", "HP ZBook", "HP Omen"]
+  },
+  { 
+    label: "PlayStation", 
+    value: "PlayStation",
+    subcategories: ["PlayStation 4", "PlayStation 5"]
+  },
+  { 
+    label: "Xbox", 
+    value: "Xbox",
+    subcategories: ["Xbox Series X", "Xbox Series S", "Xbox One"]
+  },
+  { 
+    label: "Accessories", 
+    value: "Accessories",
+    subcategories: ["Chargers", "Cables", "Cases", "Screen Protectors", "Headphones"]
+  },
 ]
 
 export default function PricesPage() {
   const [selectedCategory, setSelectedCategory] = useState("All Categories")
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null)
   const [selectedPriceRange, setSelectedPriceRange] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [wishlist, setWishlist] = useState<string[]>([])
@@ -138,6 +183,7 @@ export default function PricesPage() {
 
   const handleResetFilters = () => {
     setSelectedCategory("All Categories")
+    setSelectedSubcategory(null)
     setSelectedPriceRange(0)
     setCurrentPage(1)
   }
@@ -166,21 +212,43 @@ export default function PricesPage() {
           <div className="flex flex-col md:flex-row gap-4 items-end">
             <div className="flex-1">
               <label className="block text-sm font-bold mb-2" style={{ color: '#0d0a1a' }}>
-                Category
+                Brand
               </label>
               <select
                 value={selectedCategory}
                 onChange={e => {
                   setSelectedCategory(e.target.value)
+                  setSelectedSubcategory(null)
                   setCurrentPage(1)
                 }}
                 className="w-full px-4 py-2 rounded-lg border" style={{ borderColor: 'rgba(91, 31, 168, 0.2)' }}
               >
                 {CATEGORIES.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
+                  <option key={cat.value} value={cat.value}>{cat.label}</option>
                 ))}
               </select>
             </div>
+
+            {selectedCategory !== "All Categories" && CATEGORIES.find(c => c.value === selectedCategory)?.subcategories.length > 0 && (
+              <div className="flex-1">
+                <label className="block text-sm font-bold mb-2" style={{ color: '#0d0a1a' }}>
+                  Sub-Category
+                </label>
+                <select
+                  value={selectedSubcategory || ""}
+                  onChange={e => {
+                    setSelectedSubcategory(e.target.value || null)
+                    setCurrentPage(1)
+                  }}
+                  className="w-full px-4 py-2 rounded-lg border" style={{ borderColor: 'rgba(91, 31, 168, 0.2)' }}
+                >
+                  <option value="">All {CATEGORIES.find(c => c.value === selectedCategory)?.label} Products</option>
+                  {CATEGORIES.find(c => c.value === selectedCategory)?.subcategories.map(sub => (
+                    <option key={sub} value={sub}>{sub}</option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div className="flex-1">
               <label className="block text-sm font-bold mb-2" style={{ color: '#0d0a1a' }}>
