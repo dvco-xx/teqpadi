@@ -44,9 +44,10 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2">
             <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
               <Image
-                src="/images/logo.jpg"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Teqpadi_logo_3-ldXKiHNQfihFoiihDYzekvvvhYiovU.jpg"
                 alt="Teqpadi"
-                fill
+                width={40}
+                height={40}
                 className="object-cover"
               />
             </div>
