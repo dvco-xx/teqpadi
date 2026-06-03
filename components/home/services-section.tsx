@@ -36,13 +36,6 @@ export function ServicesSection() {
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Section Header */}
         <div className="mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full border" style={{
-            background: 'rgba(91, 31, 168, 0.08)',
-            borderColor: 'rgba(91, 31, 168, 0.2)'
-          }}>
-            <div className="w-1 h-1 rounded-full" style={{ background: '#5b1fa8' }} />
-            <span className="text-xs font-bold tracking-widest uppercase" style={{ color: '#5b1fa8' }}>Our Services</span>
-          </div>
           <h2 className="text-4xl md:text-5xl font-black" style={{ color: '#0d0a1a' }}>
             Everything Your Device Needs
           </h2>

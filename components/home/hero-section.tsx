@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -55,25 +56,29 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left content */}
           <div>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border" style={{
-              background: 'rgba(245, 200, 0, 0.12)',
-              borderColor: 'rgba(245, 200, 0, 0.3)'
-            }}>
-              <div className="w-1.5 h-1.5 bg-[#f5c800] rounded-full animate-pulse" />
-              <span className="text-[0.8rem] font-bold tracking-widest uppercase text-[#f5c800]">Premium Services</span>
+            {/* Logo */}
+            <div className="mb-8">
+              <img 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Teqpadi_logo_3-ldXKiHNQfihFoiihDYzekvvvhYiovU.jpg"
+                alt="Teqpadi"
+                className="h-20 w-auto"
+              />
             </div>
 
-            {/* Main headline */}
+            {/* Motto */}
             <h1 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-              Your Device,
+              Teqpadi
               <br />
-              <span className="text-[#f5c800]">Our Expertise</span>
+              <span className="text-[#f5c800]">Your Guy</span>
             </h1>
 
-            {/* Subheading */}
-            <p className="text-lg text-white/70 mb-8 leading-relaxed max-w-md">
-              Expert repairs, fair trade-ins, and transparent pricing. We bring premium tech services right to your doorstep across Nigeria.
+            {/* Subheading with motto explanation */}
+            <p className="text-lg text-white/80 mb-8 leading-relaxed max-w-md font-semibold">
+              Any tech need, Teqpadi is your guy
+            </p>
+            
+            <p className="text-base text-white/70 mb-8 leading-relaxed max-w-md">
+              Expert repairs, fair trade-ins, and transparent pricing. We bring trusted tech services right to your doorstep across Nigeria.
             </p>
 
             {/* CTA Buttons */}
@@ -101,7 +106,7 @@ export function HeroSection() {
                   border: '2px solid rgba(255, 255, 255, 0.35)'
                 }}
               >
-                <Link href="/prices">Check Prices</Link>
+                <Link href="/prices">Browse Devices</Link>
               </Button>
             </div>
 
@@ -169,7 +174,7 @@ export function HeroSection() {
                 borderColor: 'rgba(255, 255, 255, 0.12)'
               }}
             >
-              <div className="text-sm font-bold text-[#f5c800]">🔧 Repairs</div>
+              <div className="text-sm font-bold text-[#f5c800]">Repairs</div>
               <div className="text-xs text-white/55">All devices</div>
             </div>
 
@@ -180,7 +185,7 @@ export function HeroSection() {
                 borderColor: 'rgba(255, 255, 255, 0.12)'
               }}
             >
-              <div className="text-sm font-bold text-[#f5c800]">💰 Trade-In</div>
+              <div className="text-sm font-bold text-[#f5c800]">Trade-In</div>
               <div className="text-xs text-white/55">Best value</div>
             </div>
 
@@ -191,7 +196,7 @@ export function HeroSection() {
                 borderColor: 'rgba(255, 255, 255, 0.12)'
               }}
             >
-              <div className="text-sm font-bold text-[#f5c800]">✨ Trusted</div>
+              <div className="text-sm font-bold text-[#f5c800]">Trusted</div>
               <div className="text-xs text-white/55">5K+ reviews</div>
             </div>
           </div>
